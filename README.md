@@ -268,17 +268,6 @@ Två har ändrat samma rader. Öppna filen i VS Code, välj vilken version som s
 
 ---
 
-## 📤 När ni är klara
-
-1. Alla tickets är mergade till `main`, och appen fungerar när ni kör `main`:
-
-   - **Räkna igenom tabellen.** Ger alla fyra raderna rätt belopp?
-   - **Testa kanterna.** Skicka formuläret tomt. Skriv 0 vänner, 2,5 vänner och negativ dricks. Tryck Enter i ett fält i stället för att klicka på knappen.
-   - **Tangentbordet.** Lägg undan musen. Går det att fylla i och skicka formuläret med bara Tab och Enter?
-   - **Konsolen.** DevTools → Console. Inga röda fel.
-
-2. Klistra in länken till ert grupprepo i **#fjs26**.
-
 Lycka till! 🤩
 
 *// Sandra*
