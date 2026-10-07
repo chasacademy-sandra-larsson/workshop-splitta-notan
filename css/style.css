@@ -1,0 +1,120 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+:root {
+  --color-bg: #555;
+  --color-card: #fff;
+  --color-text: #222;
+  --color-accent: #eb4d4d;
+  --color-border: #767676;
+}
+
+/* Gör så att hidden alltid döljer, även om elementet har display i CSS */
+[hidden] {
+  display: none !important;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: Lato, sans-serif;
+  font-weight: 300;
+  font-size: 1.8rem;
+}
+
+.card {
+  width: 100%;
+  max-width: 44rem;
+  padding: 4rem 2.4rem;
+  background-color: var(--color-card);
+  border-radius: 1.6rem;
+  box-shadow: 0 1rem 5rem rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+h1 {
+  font-size: 3.6rem;
+  font-weight: 300;
+  margin-bottom: 4rem;
+}
+
+.field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1.6rem;
+}
+
+label {
+  flex: 1;
+  text-align: left;
+}
+
+input {
+  width: 12rem;
+  flex-shrink: 0;
+  padding: 0.8rem 1.2rem;
+  font: inherit;
+  border: 1px solid var(--color-border);
+  border-radius: 0.6rem;
+}
+
+button {
+  width: 100%;
+  margin-top: 3rem;
+  padding: 1.4rem;
+  font: inherit;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  color: var(--color-text);
+  background: none;
+  border: 2px solid var(--color-text);
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  color: var(--color-card);
+  background-color: var(--color-text);
+}
+
+input:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.error {
+  min-height: 2.4rem;
+  margin-top: 1rem;
+  color: #c62828;
+  font-weight: 400;
+}
+
+#result p {
+  margin-bottom: 1rem;
+}
+
+.amount {
+  font-size: 4.8rem;
+  color: var(--color-accent);
+  margin-bottom: 3rem !important;
+}
+
+.amount-small {
+  font-size: 3rem;
+}

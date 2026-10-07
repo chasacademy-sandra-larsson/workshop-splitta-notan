@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/app.js" defer></script>
+
+  <title>Splitta notan</title>
+</head>
+
+<body>
+  <main class="card">
+    <h1>Splitta notan</h1>
+
+    <!-- Vy 1: formuläret -->
+    <form id="bill-form" novalidate>
+      <div class="field">
+        <label for="friends">Antal vänner</label>
+        <input type="number" id="friends" min="1" />
+      </div>
+
+      <div class="field">
+        <label for="total">Totalsumma (kr)</label>
+        <input type="number" id="total" min="0" step="any" />
+      </div>
+
+      <div class="field">
+        <label for="tip">Dricks (%)</label>
+        <input type="number" id="tip" min="0" />
+      </div>
+
+      <p id="error" class="error" role="alert"></p>
+
+      <button type="submit">Beräkna</button>
+    </form>
+
+    <!-- Vy 2: resultatet. Dold tills man har beräknat -->
+    <section id="result" hidden>
+      <p>Varje person ska betala:</p>
+      <p class="amount"><span id="per-person">0</span> kr</p>
+
+      <!-- Används i EXTRA-1 -->
+      <div id="charity" hidden>
+        <p>Resterande skänks till välgörenhet:</p>
+        <p class="amount amount-small"><span id="rest">0</span> kr</p>
+      </div>
+
+      <!-- Används i EXTRA-2 -->
+      <button type="button" id="btn-reset" hidden>Ny beräkning</button>
+    </section>
+  </main>
+</body>
+
+</html>
