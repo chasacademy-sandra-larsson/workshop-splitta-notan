@@ -2,7 +2,7 @@
 
 Er uppgift är att göra webbapplikationen Splitta notan enligt skissen. Användaren fyller i **Antal vänner**, **Totalsumma** och **Dricks** i ett formulär, och appen räknar ut vad varje person ska betala.
 
-HTML och CSS är färdiga. Ni skriver bara JavaScript i `js/app.js`, och där finns redan alla element och tomma funktioner att utgå från.
+HTML och CSS är färdiga. Ni skriver all JavaScript själva i `js/app.js`.
 
 ![Skiss på Splitta notan](img/skiss.png)
 
@@ -45,46 +45,72 @@ Använd tabellen när ni testar.
 
 ## 📁 Startfilen
 
-Öppna `js/app.js`. Den är uppdelad i tre delar:
+HTML och CSS är färdiga. `js/app.js` innehåller bara tre rubriker — resten skriver ni själva:
 
-| Del | Innehåll |
+```js
+// ---------- 1. Element i DOM:en ----------
+// ---------- 2. Funktioner ----------
+// ---------- 3. Händelser ----------
+```
+
+Håll er till den ordningen. Då vet alla i gruppen var saker ska ligga, och det blir färre merge-konflikter.
+
+### Det här finns i HTML:en
+
+| Selektor | Vad det är |
 |---|---|
-| **1. Element i DOM:en** | Formuläret, fälten, felmeddelandet och resultatvyn är redan hämtade. |
-| **2. Funktioner** | `getFormValues()`, `calculateSplit()`, `showResult()`, `validate()` och `handleSubmit()`. Tomma, med `TODO`-kommentarer som steg. |
-| **3. Händelser** | Formulärets `submit` är redan kopplat till `handleSubmit`. |
+| `#bill-form` | Formuläret |
+| `#friends`, `#total`, `#tip` | De tre fälten |
+| `#error` | Tom rad för felmeddelanden |
+| `#result` | Resultatvyn, dold med `hidden` från början |
+| `#per-person` | Där beloppet per person ska stå |
+| `#charity`, `#rest` | Välgörenhetsrutan och beloppet (EXTRA-1) |
+| `#btn-reset` | Knappen "Ny beräkning", dold (EXTRA-2) |
+
+### Funktionerna ni ska skriva
+
+Bestäm namnen tillsammans innan ni delar upp er, så att delarna passar ihop. Förslag:
+
+| Funktion | Tar emot | Returnerar / gör |
+|---|---|---|
+| `getFormValues()` | – | `{ friends, total, tip }` som **tal** |
+| `calculateSplit(friends, total, tip)` | tre tal | `{ perPerson, rest }`. Rör inte DOM:en. |
+| `showResult(perPerson)` | ett tal | Döljer formuläret och visar resultatet |
+| `validate(values)` | `{ friends, total, tip }` | `true` eller `false`, och skriver felmeddelandet |
+| `handleSubmit(event)` | submit-eventet | Kopplar ihop allt ovan |
 
 Varje funktion gör **en sak** och kan testas för sig i konsolen, innan resten är klart. Skriv t.ex. `calculateSplit(4, 880, 10)` i DevTools → Console och se vad som kommer tillbaka.
 
 **Två regler som gör det enklare:**
 
 1. **Räkna i en funktion, visa i en annan.** `calculateSplit()` rör inte DOM:en, den tar emot tal och returnerar tal. Det är `showResult()` som skriver ut.
-2. **Testa efter varje TODO.** Lägg in en `console.log()` och kolla i DevTools innan ni går vidare.
+2. **Testa efter varje rad.** Lägg in en `console.log()` och kolla i DevTools innan ni går vidare.
 
 ---
 
 ## 🎫 Tickets
 
-**NOTA-1 till NOTA-4** ligger i var sin funktion och kan göras parallellt. När alla fyra är mergade avkommenterar ni de tre sista raderna i `handleSubmit()` — då hänger appen ihop. **EXTRA** gör ni om ni hinner, när grunden är mergad till `main`.
+**NOTA-1** gör ni tillsammans, på en dator, och mergar först. **NOTA-2 till NOTA-4** kan sedan göras parallellt. **NOTA-5** kopplar ihop allt. **EXTRA** gör ni om ni hinner.
 
-### NOTA-1 · Formuläret skickas utan att sidan laddas om
+### NOTA-1 · Formuläret skickas utan att sidan laddas om — tillsammans
 
-Fyll i `getFormValues()` och första raden i `handleSubmit()`.
+Hämta formuläret och fälten under *Element i DOM:en*. Skriv `getFormValues()` och `handleSubmit()`, och koppla `handleSubmit` till formulärets `submit`-event under *Händelser*.
 
-**Klart när:** sidan laddas inte om när man klickar *Beräkna*, och konsolen visar ett objekt med `friends`, `total` och `tip` där alla tre är **tal**, inte strängar.
+**Klart när:** sidan laddas inte om när man klickar *Beräkna* eller trycker Enter, och konsolen visar ett objekt med `friends`, `total` och `tip` där alla tre är **tal**, inte strängar.
 
-*Tips:* `event.preventDefault()`, `Number()`
+*Tips:* `addEventListener('submit', ...)`, `event.preventDefault()`, `Number()`
 
 ### NOTA-2 · Räkna ut notan
 
-Fyll i `calculateSplit()`. Funktionen rör inte DOM:en.
+Skriv `calculateSplit(friends, total, tip)`. Funktionen rör inte DOM:en.
 
 **Klart när:** alla fyra raderna i tabellen ovan ger rätt `perPerson` och `rest` när ni kör funktionen i konsolen.
 
-*Tips:* `Math.ceil()`, `Math.floor()`, och `%` eller subtraktion för resten.
+*Tips:* `Math.ceil()`, `Math.floor()`, och `%` eller subtraktion för resten. Läs "Decimaltal i JavaScript" under *Bra att veta*.
 
 ### NOTA-3 · Visa resultatet
 
-Fyll i `showResult()`.
+Skriv `showResult(perPerson)`.
 
 **Klart när:** `showResult(242)` i konsolen döljer formuläret, visar resultatvyn och det står **242 kr**.
 
@@ -92,11 +118,17 @@ Fyll i `showResult()`.
 
 ### NOTA-4 · Felmeddelande
 
-Fyll i `validate()`.
+Skriv `validate(values)`.
 
-**Klart när:** tomma fält, 0 vänner, 2,5 vänner, en totalsumma på 0 eller negativ dricks ger ett felmeddelande som säger **vad** som är fel, och funktionen returnerar `false`. Rätt värden tömmer felmeddelandet och returnerar `true`.
+**Klart när:** tomma fält, 0 vänner, 2,5 vänner, en totalsumma på 0 eller negativ dricks ger ett felmeddelande i `#error` som säger **vad** som är fel, och funktionen returnerar `false`. Rätt värden tömmer felmeddelandet och returnerar `true`.
 
 *Tips:* Ett tomt fält blir `0` med `Number("")`. `Number.isInteger()` kollar heltal.
+
+### NOTA-5 · Koppla ihop
+
+När NOTA-2 till NOTA-4 är mergade: låt `handleSubmit()` validera, räkna och visa resultatet.
+
+**Klart när:** alla fyra raderna i tabellen ger rätt belopp när man fyller i formuläret, och felaktiga värden ger ett felmeddelande i stället för ett resultat.
 
 ### EXTRA-1 · Välgörenhet
 
@@ -110,7 +142,7 @@ Knappen `#btn-reset` finns redan i HTML:en, men är dold.
 
 **Klart när:** knappen syns i resultatvyn, och ett klick tar användaren tillbaka till formuläret med fälten tomma.
 
-*Tips:* `billForm.reset()`
+*Tips:* `reset()` på formuläret tömmer alla fält.
 
 ### EXTRA-3 · Snabbval för dricks
 
@@ -162,14 +194,15 @@ cd workshop-splitta-notan-grupp-N
 
 ### 3. Fördela tickets
 
-Varje funktion i `app.js` är en egen ticket, så ni kan jobba parallellt. Ett förslag för fyra personer:
+Varje funktion är en egen ticket, så efter NOTA-1 kan ni jobba parallellt. Ett förslag för fyra personer:
 
 | Person | Ticket | Funktion |
 |---|---|---|
-| A | NOTA-1 | `getFormValues()` och `handleSubmit()` |
-| B | NOTA-2 | `calculateSplit()` |
-| C | NOTA-3 | `showResult()` |
-| D | NOTA-4 | `validate()` |
+| Alla | NOTA-1 | Tillsammans på en dator. Mergas först. |
+| A | NOTA-2 | `calculateSplit()` |
+| B | NOTA-3 | `showResult()` |
+| C | NOTA-4 | `validate()` |
+| D | NOTA-5 | Kopplar ihop i `handleSubmit()`, och granskar under tiden |
 
 Är ni färre, ta två var. Sitt gärna två och två på samma dator.
 
